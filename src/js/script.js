@@ -94,6 +94,8 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      //thisProduct.imageVisible = thisProduct.element.querySelector(classNames.menuProduct.imageVisible);
     }
 
     initAccordion() {
@@ -151,6 +153,7 @@
 
         // for every option in this category
         for (let optionId in param.options) {
+          
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
           const selectOption = formData[paramId] && formData[paramId].includes(optionId);
@@ -162,6 +165,18 @@
             // remove option price in price variable
           } else if (option.default && !selectOption) {
             price -= option.price;
+          }
+
+
+          const imageVisible = classNames.menuProduct.imageVisible;
+          const imageOption = document.querySelector('.' + paramId + '-' + optionId);
+
+          if (imageOption) {
+            if (selectOption != false) {
+              imageOption.classList.add(imageVisible);
+            } else if (selectOption != true) {
+              imageOption.classList.remove(imageVisible);
+            }
           }
         }
 

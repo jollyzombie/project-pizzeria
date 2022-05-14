@@ -190,7 +190,7 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-      thisProduct.amountWidget.addEventListener('change', function (){
+      thisProduct.amountWidget.element.addEventListener('change', function (){
         thisProduct.processOrder();
       });
     }
@@ -214,8 +214,8 @@
 
       thisWidget.element = element;
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.linkDecrease);
-      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.linkIncrease);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
     }
 
     setValue(value) {

@@ -23,8 +23,8 @@ dataSource.products = {
         label: 'Coffee type',
         type: 'radios',
         options: {
-          latte: {label: 'Latte', price: 1, default: true},
-          cappuccino: {label: 'Cappuccino', price: 1},
+          latte: {label: 'Latte', price: 2, default: true},
+          cappuccino: {label: 'Cappuccino', price: 2},
           espresso: {label: 'Espresso', price: 1},
           macchiato : {label: 'Macchiato ', price: 1},
         },
@@ -36,7 +36,7 @@ dataSource.products = {
     price: 20,
     description: 'The true taste of Italy &ndash; homemade pizza as prepared by our grandmothers in old-fashoned brick ovens. Choose your favorite topping and enjoy your comfort food! All ingredients come straight from eco-friendly, trusted farms in the Italian countryside.',
     images: [
-      '<img class="active" src="images/pizza/crust.svg" style="width: 100%; height: auto;">',
+      '<img class="active" src="images/pizza/crust.svg" style="width: 100%;">',
       '<img class="sauce-tomato" src="images/pizza/tomato-sauce.svg">',
       '<img class="sauce-cream" src="images/pizza/sour-cream.svg">',
       '<img class="toppings-salami" src="images/pizza/salami.svg">',
@@ -86,7 +86,7 @@ dataSource.products = {
     price: 9,
     description: 'A delicious salad made of fresh, home-grown products on a crispy lettuce base.',
     images: [
-      '<img class="active" src="images/salad/plate.svg" style="width: 100%; height: auto;">',
+      '<img class="active" src="images/salad/plate.svg" style="width: 100%;">',
       '<img class="ingredients-cucumber" src="images/salad/cucumber.svg" style="z-index: 1;">',
       '<img class="ingredients-tomatoes" src="images/salad/tomatoes.svg" style="z-index: 2;">',
       '<img class="ingredients-olives" src="images/salad/salad-olives.svg" style="z-index: 3;">',

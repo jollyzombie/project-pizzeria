@@ -9,6 +9,16 @@ dataSource.products = {
     images: [
       '<img class="active" src="images/doughnut.svg">',
     ],
+    params: {
+      extras: {
+        label: 'Extras',
+        type: 'checkboxes',
+        options: {
+          sugar: {label: 'Extra sugar', price: 1},
+          sprinkle: {label: 'Extra sprinkle', price: 2},
+        },
+      },
+    },
   },
   breakfast: {
     class: 'small',

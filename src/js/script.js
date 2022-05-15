@@ -124,18 +124,18 @@
 
       thisProduct.form.addEventListener('submit', function (event) {
         event.preventDefault();
-        thisProduct.processOrder(); //callback
+        thisProduct.processOrder();
       });
 
       for (let input of thisProduct.formInputs) {
         input.addEventListener('change', function () {
-          thisProduct.processOrder(); //callback
+          thisProduct.processOrder();
         });
       }
 
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
-        thisProduct.processOrder(); // callback
+        thisProduct.processOrder();
       });
     }
 
@@ -179,8 +179,11 @@
           }
         }
 
-        // update calculated price in HTML
-        thisProduct.priceElem.innerHTML = price;
+        // multiply price by amount
+        //price *= thisProduct.amountWidget.value;
+
+        // update calculated price in the HTML
+        thisProduct.priceElem.innerHTML = price * thisProduct.amountWidget.value;
       }
     }
 
@@ -188,7 +191,10 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-      thisProduct.amountWidget.element.addEventListener('change', function () {
+      // thisProduct.amountWidget.element.addEventListener('change', function () {
+      //    thisProduct.processOrder();
+      //  });
+      thisProduct.amountWidgetElem.addEventListener('updated', function () {
         thisProduct.processOrder();
       });
     }
@@ -201,9 +207,6 @@
       thisWidget.getElements(element);
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initActions();
-
-      console.log('AmountWidget: ', thisWidget);
-      console.log('constructor arg: ', element);
     }
 
     getElements(element) {
@@ -221,46 +224,43 @@
 
       const newValue = parseInt(value);
 
-      // Add validation
+      thisWidget.input.value = thisWidget.value;
+
+
       if (thisWidget.value !== newValue && !isNaN(newValue)) {
         thisWidget.value = newValue;
-      } else if (newValue < settings.amountWidget.defaultMin) {
-        thisWidget.value = settings.amountWidget.defaultMin;
-        thisWidget.input.value = settings.amountWidget.defaultMin;
-      } else if (newValue >= settings.amountWidget.defaultMax) {
+      } else if (thisWidget.input.value >= settings.amountWidget.defaultMax) {
         thisWidget.value = settings.amountWidget.defaultMax;
         thisWidget.input.value = settings.amountWidget.defaultMax;
+      } else if (thisWidget.input.value < settings.amountWidget.defaultMin) {
+        thisWidget.value = settings.amountWidget.defaultMin;
+        thisWidget.input.value = settings.amountWidget.defaultMin;
       }
-      thisWidget.input.value = thisWidget.value;
-      thisWidget.announce();
+
+      thisWidget.annouance();
     }
 
     initActions() {
       const thisWidget = this;
-
       thisWidget.input.addEventListener('change', function () {
-        thisWidget.setValue(thisWidget.input.value);
+        thisWidget.setValue(thisWidget.value);
       });
-
       thisWidget.linkDecrease.addEventListener('click', function (event) {
         event.preventDefault();
         thisWidget.setValue(--thisWidget.value);
       });
-
       thisWidget.linkIncrease.addEventListener('click', function (event) {
         event.preventDefault();
         thisWidget.setValue(++thisWidget.value);
       });
     }
 
-    announce() {
+    annouance() {
       const thisWidget = this;
-
-      const event = new Event ('updated');
+      const event = new CustomEvent('updated');
       thisWidget.element.dispatchEvent(event);
-
     }
-  } // amountWidget class bracket
+  }
 
   const app = {
     initMenu: function () {
@@ -274,16 +274,16 @@
     initData: function () {
       const thisApp = this;
 
-      thisApp.data = dataSource; // reference
+      thisApp.data = dataSource;
     },
 
     init: function () {
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+      // console.log('*** App starting ***');
+      // console.log('thisApp:', thisApp);
+      // console.log('classNames:', classNames);
+      // console.log('settings:', settings);
+      // console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();

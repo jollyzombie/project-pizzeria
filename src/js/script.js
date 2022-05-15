@@ -221,9 +221,6 @@
 
       const newValue = parseInt(value);
 
-      thisWidget.value = newValue;
-      thisWidget.input.value = thisWidget.value;
-
       // Add validation
       if (thisWidget.value !== newValue && !isNaN(newValue)) {
         thisWidget.value = newValue;
@@ -234,6 +231,8 @@
         thisWidget.value = settings.amountWidget.defaultMax;
         thisWidget.input.value = settings.amountWidget.defaultMax;
       }
+      thisWidget.input.value = thisWidget.value;
+      thisWidget.announce();
     }
 
     initActions() {
@@ -253,7 +252,15 @@
         thisWidget.setValue(++thisWidget.value);
       });
     }
-  }
+
+    announce() {
+      const thisWidget = this;
+
+      const event = new Event ('updated');
+      thisWidget.element.dispatchEvent(event);
+
+    }
+  } // amountWidget class bracket
 
   const app = {
     initMenu: function () {

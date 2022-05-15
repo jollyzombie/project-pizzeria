@@ -226,7 +226,7 @@
 
       thisWidget.getElements(element);
       thisWidget.setValue(thisWidget.input.value);
-      thisWidget.initActions();
+      thisWidget.initAction();
     }
 
     getElements(element) {
@@ -244,22 +244,18 @@
 
       const newValue = parseInt(value);
 
-      thisWidget.input.value = thisWidget.value;
-
-
-      if (thisWidget.value !== newValue && !isNaN(newValue)) {
+      if (thisWidget.value !== newValue && !isNaN(newValue)
+      && newValue <= (settings.amountWidget.defaultMax)
+      && newValue > (settings.amountWidget.defaultMin)) {
         thisWidget.value = newValue;
-      } else if (thisWidget.input.value >= settings.amountWidget.defaultMax) {
-        thisWidget.value = settings.amountWidget.defaultMax;
-        thisWidget.input.value = settings.amountWidget.defaultMax;
-      } else if (thisWidget.input.value < settings.amountWidget.defaultMin) {
-        thisWidget.value = settings.amountWidget.defaultMin;
-        thisWidget.input.value = settings.amountWidget.defaultMin;
+        thisWidget.input.value = thisWidget.value;
+      } else {
+        thisWidget.input.value = thisWidget.value;
       }
       thisWidget.annouance();
     }
 
-    initActions() {
+    initAction() {
       const thisWidget = this;
       thisWidget.input.addEventListener('change', function () {
         thisWidget.setValue(thisWidget.input.value);

@@ -244,13 +244,17 @@
 
       const newValue = parseInt(value);
 
-      if (thisWidget.value !== newValue && !isNaN(newValue)
-      && newValue <= (settings.amountWidget.defaultMax)
-      && newValue > (settings.amountWidget.defaultMin)) {
+      thisWidget.input.value = thisWidget.value;
+
+
+      if (thisWidget.value !== newValue && !isNaN(newValue)) {
         thisWidget.value = newValue;
-        thisWidget.input.value = thisWidget.value;
-      } else {
-        thisWidget.input.value = thisWidget.value;
+      } else if (thisWidget.input.value >= settings.amountWidget.defaultMax) {
+        thisWidget.value = settings.amountWidget.defaultMax;
+        thisWidget.input.value = settings.amountWidget.defaultMax;
+      } else if (thisWidget.input.value < settings.amountWidget.defaultMin) {
+        thisWidget.value = settings.amountWidget.defaultMin;
+        thisWidget.input.value = settings.amountWidget.defaultMin;
       }
       thisWidget.annouance();
     }

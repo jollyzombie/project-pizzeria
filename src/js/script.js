@@ -290,16 +290,13 @@
 
       const newValue = parseInt(value);
 
-      thisWidget.input.value = thisWidget.value;
-
-      if (thisWidget.value !== newValue && !isNaN(newValue)) {
+      if (thisWidget.value !== newValue && !isNaN(newValue)
+      && (newValue <= settings.amountWidget.defaultMax)
+      && newValue >= settings.amountWidget.defaultMin) {
         thisWidget.value = newValue;
-      } else if (thisWidget.input.value >= settings.amountWidget.defaultMax) {
-        thisWidget.value = settings.amountWidget.defaultMax;
-        thisWidget.input.value = settings.amountWidget.defaultMax;
-      } else if (thisWidget.input.value < settings.amountWidget.defaultMin) {
-        thisWidget.value = settings.amountWidget.defaultMin;
-        thisWidget.input.value = settings.amountWidget.defaultMin;
+        thisWidget.input.value = thisWidget.value;
+      } else {
+        thisWidget.input.value = thisWidget.value;
       }
       thisWidget.annouance();
     }
@@ -311,11 +308,11 @@
       });
       thisWidget.linkDecrease.addEventListener('click', function (event) {
         event.preventDefault();
-        thisWidget.setValue(--thisWidget.value);
+        thisWidget.setValue(thisWidget.value - 1);
       });
       thisWidget.linkIncrease.addEventListener('click', function (event) {
         event.preventDefault();
-        thisWidget.setValue(++thisWidget.value);
+        thisWidget.setValue(thisWidget.value + 1);
       });
     }
 
@@ -335,7 +332,6 @@
 
       thisCart.getElements(element);
       thisCart.initAction();
-      //console.log('new Cart: ', thisCart);
     }
 
     getElements(element) {
@@ -382,7 +378,6 @@
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
-      console.log('CartProduct: ', thisCartProduct);
     }
 
     getElements(element) {
@@ -403,8 +398,8 @@
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
 
       thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
-        thisCartProduct.amount = thisCartProduct.amountWidget.value;
-        thisCartProduct.price = thisCartProduct.amount * thisCartProduct.priceSingle;
+        //thisCartProduct.amount = thisCartProduct.amountWidget.value;
+        thisCartProduct.price = thisCartProduct.amountWidget.value * thisCartProduct.priceSingle;
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }

@@ -14,7 +14,7 @@ dataSource.products = {
         label: 'Extras',
         type: 'checkboxes',
         options: {
-          sugar: {label: 'Extra sugar', price: 1},
+          sugar: {label: 'Extra sugar', price: 1, default: true},
           sprinkle: {label: 'Extra sprinkle', price: 2},
         },
       },

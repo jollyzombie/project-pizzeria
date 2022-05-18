@@ -206,13 +206,12 @@
             }
           }
         }
-
-        // multiply price by amount
+      }
+      // multiply price by amount
         //price *= thisProduct.amountWidget.value;
         thisProduct.priceSingle = price;
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price * thisProduct.amountWidget.value;
-      }
     }
 
     initAmountWidget() {
@@ -404,19 +403,14 @@
       thisCart.subtotalPrice = 0; // price of all items in cart
 
       for (let cartUpdate of thisCart.products) {
-        thisCart.totalNumber += cartUpdate.amount.value; // ttl number of products in cart
+        thisCart.totalNumber += cartUpdate.amount; // ttl number of products in cart
         thisCart.subtotalPrice += cartUpdate.price; // price of all products in cart
       }
-      if (thisCart.totalNumber == 0) {
+      if (thisCart.totalNumber <= 0) {
         thisCart.deliveryFee = 0; // No products, no delivery ;)
-      } else {
+      } else if (thisCart.totalNumber != 0) {
         thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
       }
-
-      console.log('ttl number: ', thisCart.totalNumber);
-      console.log('subttl price: ', thisCart.subtotalPrice);
-      console.log('delivery fee: ', thisCart.deliveryFee);
-      console.log('ttl price: ', thisCart.totalPrice);
 
       for (let totalPriceUpdate of thisCart.dom.totalPrice) {
         totalPriceUpdate.innerHTML = thisCart.totalPrice;

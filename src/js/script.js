@@ -208,10 +208,10 @@
         }
       }
       // multiply price by amount
-        //price *= thisProduct.amountWidget.value;
-        thisProduct.priceSingle = price;
-        // update calculated price in the HTML
-        thisProduct.priceElem.innerHTML = price * thisProduct.amountWidget.value;
+      //price *= thisProduct.amountWidget.value;
+      thisProduct.priceSingle = price;
+      // update calculated price in the HTML
+      thisProduct.priceElem.innerHTML = price * thisProduct.amountWidget.value;
     }
 
     initAmountWidget() {
@@ -406,11 +406,11 @@
         thisCart.totalNumber += cartUpdate.amount; // ttl number of products in cart
         thisCart.subtotalPrice += cartUpdate.price; // price of all products in cart
       }
-      if (thisCart.totalNumber <= 0) {
+      if (thisCart.totalNumber == 0) {
         thisCart.deliveryFee = 0; // No products, no delivery ;)
-      } else if (thisCart.totalNumber != 0) {
-        thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
       }
+
+      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
 
       for (let totalPriceUpdate of thisCart.dom.totalPrice) {
         totalPriceUpdate.innerHTML = thisCart.totalPrice;
@@ -506,6 +506,7 @@
 
       thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
         thisCartProduct.price = thisCartProduct.amountWidget.value * thisCartProduct.priceSingle;
+        thisCartProduct.amount = thisCartProduct.amountWidget.value;
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }

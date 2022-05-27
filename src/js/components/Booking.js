@@ -8,6 +8,8 @@ class Booking {
   constructor(element) {
     const thisBooking = this;
 
+    thisBooking.bookedTable = '';
+
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
@@ -137,6 +139,10 @@ class Booking {
       hourPicker: element.querySelector(select.widgets.hourPicker.wrapper),
       tables: element.querySelectorAll(select.booking.tables),
       floorPlan: element.querySelector(select.booking.floorPlan),
+      phone: element.querySelector(select.cart.phone),
+      address: element.querySelector(select.cart.address),
+      starters: element.querySelectorAll(select.booking.starters),
+      orderSubmit: element.querySelector(select.booking.submit),
     };
   }
 
@@ -151,6 +157,12 @@ class Booking {
 
     thisBooking.dom.wrapper.addEventListener('updated', function () {
       thisBooking.updateDOM();
+      thisBooking.resetTable();
+    });
+
+    thisBooking.dom.orderSubmit.addEventListener('click', function (event) {
+      event.preventDefault();
+      thisBooking.sendBooking();
     });
   }
 
@@ -175,9 +187,55 @@ class Booking {
         clickedTable.classList.remove(classNames.booking.tableSelected);
       }
     });
-    // TO DO: wybór stolika powinien być resetowany przy zmianie godziny, daty, liczby gości oraz liczby godzin,
+  }
+
+  // DONE: wybór stolika powinien być resetowany przy zmianie godziny, daty, liczby gości oraz liczby godzin,
+  resetTable() {
+    const thisBooking = this;
+    for (let table of thisBooking.dom.tables) {
+      table.classList.remove(classNames.booking.tableSelected);
+    }
+  }
+
+  sendBooking() {
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    const payload = {
+      date: thisBooking.datePickerWidget.value,
+      hour: thisBooking.hourPickerWidget.value,
+      table: thisBooking.bookedTable,
+      duration: parseInt(thisBooking.hoursAmountWidget.value),
+      ppl: parseInt(thisBooking.peopleAmountWidget.value),
+      starters: [],
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+    };
+
+    for (let starter of thisBooking.dom.starters) {
+      if (starter.checked == true) {
+        payload.starters.push(starter.value);
+      }
+    }
+    //console.log('payload', payload);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    fetch(url, options)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (parsedResponse) {
+        console.log('parsedResponse', parsedResponse);
+      });
   }
 }
-
 
 export default Booking;

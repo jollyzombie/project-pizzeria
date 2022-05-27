@@ -1,4 +1,4 @@
-import {settings, select, classNames, templates} from '../settings.js';
+import { settings, select, classNames, templates } from '../settings.js';
 import utils from '../utils.js';
 import CartProduct from './CartProduct.js';
 
@@ -136,7 +136,7 @@ class Cart {
         return response.json();
       })
       .then(function (parsedResponse) {
-        console.log('parsedResponse:', parsedResponse);
+        console.log('parsedResponse', parsedResponse);
       });
   }
 }

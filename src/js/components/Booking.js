@@ -14,8 +14,6 @@ class Booking {
     thisBooking.bookTables();
   }
 
-  bookedTable = [];
-
   getData() {
     const thisBooking = this;
 
@@ -70,8 +68,6 @@ class Booking {
         }
       }
     }
-
-    // console.log('thisBooking.booked', thisBooking.booked);
     thisBooking.updateDOM();
   }
 
@@ -85,7 +81,6 @@ class Booking {
     const startHour = utils.hourToNumber(hour);
 
     for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5) {
-      // console.log('loop', hourBlock);
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
       }
@@ -165,41 +160,24 @@ class Booking {
     thisBooking.dom.floorPlan.addEventListener('click', function (event) {
       const clickedTable = event.target;
 
-      if (!clickedTable.classList.contains(classNames.booking.tableBooked)) {
-        clickedTable.classList.toggle(classNames.booking.tableSelected);
+      const selectedTableId = clickedTable.getAttribute(settings.booking.tableIdAttribute);
+      thisBooking.bookedTable = selectedTableId;
 
-        const tableId = clickedTable.getAttribute(settings.booking.tableIdAttribute);
-
-        if (!thisBooking.bookedTable.includes(tableId)) {
-          thisBooking.bookedTable = tableId;
+      if (
+        !clickedTable.classList.contains(classNames.booking.tableBooked) &&
+        !clickedTable.classList.contains(classNames.booking.tableSelected)
+      )
+        for (let table of thisBooking.dom.tables) {
+          table.classList.remove(classNames.booking.tableSelected);
+          clickedTable.classList.add(classNames.booking.tableSelected);
         }
+      else if (clickedTable.classList.contains(classNames.booking.tableSelected)) {
+        clickedTable.classList.remove(classNames.booking.tableSelected);
       }
-
-      //   for(let table of thisBooking.dom.tables) {
-
-      //     const tableId = clickedTable.getAttribute(settings.booking.tableIdAttribute);
-      //     if(table != tableId))
-      //   }
     });
-
-    // const thisBook = this;
-    //   thisBook.container.addEventListener('dblclick', function (event) {
-    //     event.preventDefault();
-    //     const cover = event.target.offsetParent;
-
-    //     if (cover.classList.contains('book__image')) {
-    //       cover.classList.toggle('favorite');
-
-    //       const bookCoverId = cover.getAttribute('data-id');
-
-    //       if (favoriteBooks.includes(bookCoverId)) {
-    //         favoriteBooks.splice(1);
-    //       } else {
-    //         favoriteBooks.push(bookCoverId);
-    //       }
-    //     }
-    //   });
+    // TO DO: wybór stolika powinien być resetowany przy zmianie godziny, daty, liczby gości oraz liczby godzin,
   }
 }
+
 
 export default Booking;

@@ -17,7 +17,7 @@
     width: $base-size * 23;
     height: $base-size * 10;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: $radius;
     z-index: 0;
   }
 
@@ -75,8 +75,8 @@
 }
 
 .opening-hours {
-  background: red;
-  border-radius: 5px;
+  background: $color-danger;
+  border-radius: $radius;
   width: auto;
   height: $base-size * 10;
   color: $color-light;
@@ -86,8 +86,9 @@
   font-family: $font-header;
 
   h2 {
-    margin: 0;
-    padding-top: 20px;
+    margin: 5px auto;
+    padding-top: 40px;
+    line-height: 0.5;
   }
 }
 
@@ -96,7 +97,7 @@
 .main-carousel {
   margin-top: $base-size * 10;
   height: $base-size * 20;
-  width: $base-size * 50;
+
 }
 
 .carousel-cell {
@@ -110,7 +111,7 @@
 
 .box-description {
   flex: 0 0 66%;
-  padding-left: $base-size * 4;
+  padding-left: $base-size * 2;
 
   h2 {
     font-family: $font-header;

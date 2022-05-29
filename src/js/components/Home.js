@@ -4,19 +4,25 @@ import utils from '../utils.js';
 class Home {
   constructor(element) {
     const thisHome = this;
-    
+
     thisHome.render(element);
   }
 
   render() {
     const thisHome = this;
+
     const generatedHTML = templates.homePage();
-    const elementDom = utils.createDOMFromHTML(generatedHTML);
-    thisHome.dom = {
-      wrapper: document.querySelector(select.containerOf.home),
-      homeCarousel: document.querySelector(select.carousel.wrapper),
-    };
-    thisHome.dom.wrapper.appendChild(elementDom);
+
+    thisHome.element = utils.createDOMFromHTML(generatedHTML);
+
+    const homeWrapper = document.querySelector(select.containerOf.home);
+    homeWrapper.appendChild(thisHome.element);
+
+    // thisHome.dom = {};
+    // thisHome.dom.wrapper = element;
+    // thisHome.dom.carousel = element.querySelector(select.containerOf.carousel);
+    // thisHome.pages = document.querySelector(select.containerOf.pages).children;
+    // thisHome.navLinks = document.querySelectorAll(select.nav.homeLinks);
   }
 }
 

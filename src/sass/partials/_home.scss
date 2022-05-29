@@ -75,7 +75,7 @@
 }
 
 .opening-hours {
-  background-color: $color-main;
+  background: red;
   border-radius: 5px;
   width: auto;
   height: $base-size * 10;
@@ -94,8 +94,9 @@
 /* CAROUSEL */
 
 .main-carousel {
-  margin-top: $base-size * 9;
-  height: $base-size * 16;
+  margin-top: $base-size * 10;
+  height: $base-size * 20;
+  width: $base-size * 50;
 }
 
 .carousel-cell {
@@ -109,7 +110,7 @@
 
 .box-description {
   flex: 0 0 66%;
-  padding-left: $base-size * 2;
+  padding-left: $base-size * 4;
 
   h2 {
     font-family: $font-header;
@@ -128,7 +129,7 @@
   border-radius: 5px;
 }
 
-/* GALLERY */
+/* Insta gallery */
 
 .gallery {
   margin-top: $base-size * 9;

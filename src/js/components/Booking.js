@@ -1,3 +1,5 @@
+
+
 import { select, templates, settings, classNames } from '../settings.js';
 import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
@@ -8,7 +10,7 @@ class Booking {
   constructor(element) {
     const thisBooking = this;
 
-    thisBooking.bookedTable = '';
+    thisBooking.bookedTable = [];
 
     thisBooking.render(element);
     thisBooking.initWidgets();
@@ -163,6 +165,8 @@ class Booking {
     thisBooking.dom.orderSubmit.addEventListener('click', function (event) {
       event.preventDefault();
       thisBooking.sendBooking();
+      alert('Your booking request has successfully been sent to us!\nIf you have a questions feel free to contact us!');
+      thisBooking.resetTable();
     });
   }
 
@@ -171,6 +175,8 @@ class Booking {
 
     thisBooking.dom.floorPlan.addEventListener('click', function (event) {
       const clickedTable = event.target;
+
+      console.log('clicked table', clickedTable);
 
       const selectedTableId = clickedTable.getAttribute(settings.booking.tableIdAttribute);
       thisBooking.bookedTable = selectedTableId;
@@ -182,6 +188,7 @@ class Booking {
         for (let table of thisBooking.dom.tables) {
           table.classList.remove(classNames.booking.tableSelected);
           clickedTable.classList.add(classNames.booking.tableSelected);
+
         }
       else if (clickedTable.classList.contains(classNames.booking.tableSelected)) {
         clickedTable.classList.remove(classNames.booking.tableSelected);
@@ -189,13 +196,14 @@ class Booking {
     });
   }
 
-  // DONE: wybór stolika powinien być resetowany przy zmianie godziny, daty, liczby gości oraz liczby godzin,
   resetTable() {
     const thisBooking = this;
     for (let table of thisBooking.dom.tables) {
       table.classList.remove(classNames.booking.tableSelected);
+      thisBooking.bookedTable = null;
     }
   }
+
 
   sendBooking() {
     const thisBooking = this;
@@ -218,7 +226,7 @@ class Booking {
         payload.starters.push(starter.value);
       }
     }
-    //console.log('payload', payload);
+    thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
 
     const options = {
       method: 'POST',

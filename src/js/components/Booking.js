@@ -174,6 +174,7 @@ class Booking {
 
       const selectedTableId = clickedTable.getAttribute(settings.booking.tableIdAttribute);
       thisBooking.bookedTable = selectedTableId;
+      thisBooking.selectedTableId = parseInt(selectedTableId);
 
       if (
         !clickedTable.classList.contains(classNames.booking.tableBooked) &&
@@ -182,8 +183,6 @@ class Booking {
         for (let table of thisBooking.dom.tables) {
           table.classList.remove(classNames.booking.tableSelected);
           clickedTable.classList.add(classNames.booking.tableSelected);
-
-          thisBooking.selectedTableId = parseInt(selectedTableId);
         }
       else if (clickedTable.classList.contains(classNames.booking.tableSelected)) {
         clickedTable.classList.remove(classNames.booking.tableSelected);
@@ -207,7 +206,7 @@ class Booking {
     const payload = {
       date: thisBooking.datePickerWidget.value,
       hour: thisBooking.hourPickerWidget.value,
-      table: thisBooking.bookedTable,
+      table: parseInt(thisBooking.bookedTable),
       duration: parseInt(thisBooking.hoursAmountWidget.value),
       ppl: parseInt(thisBooking.peopleAmountWidget.value),
       starters: [],
@@ -237,12 +236,13 @@ class Booking {
         console.log('parsedResponse', parsedResponse);
 
         thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
-        alert('Your booking request has successfully been sent to us!\nIf you have a questions feel free to contact us!');
+        alert(
+          'Your booking request has successfully been sent to us!\nIf you have a questions feel free to contact us!'
+        );
+        thisBooking.resetTable();
+        thisBooking.updateDOM();
       });
-      thisBooking.resetTable();
-      thisBooking.updateDOM();
   }
-
 }
 
 export default Booking;

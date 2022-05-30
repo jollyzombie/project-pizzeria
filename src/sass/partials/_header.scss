@@ -1,6 +1,7 @@
 .header {
   padding: ($base-size * 5) 0 ($base-size * 8) 0;
-  background: $color-dark;
+  background-color: rgba(39, 117, 55, 1);
+  background-image: radial-gradient(circle, rgba(39, 117, 55, 1) 0%, rgba(13, 29, 0, 1) 100%);
   color: $color-light;
 
   &__wrapper {
@@ -11,6 +12,10 @@
 .logo {
   display: inline-block;
   line-height: 0.5;
+
+  &__img {
+    width: 100px;
+  }
 
   &__top {
     text-transform: uppercase;
@@ -39,17 +44,17 @@
 
   a {
     @extend .h2;
-    color: $color-danger;
+    color: $color-dark;
     text-decoration: none;
     margin-right: ($base-size * 2);
     text-align: center;
     padding: $base-size ($base-size * 2);
-    background: darken($color-dark, 5%);
+    background: $color-turtles;
     border-top-left-radius: $radius;
     border-top-right-radius: $radius;
 
     &.active {
-      background: lighten($color-dark, 70%);
+      background: darken($color-light, 5%);
     }
   }
 }

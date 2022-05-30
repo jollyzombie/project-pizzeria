@@ -2,13 +2,12 @@
 
 $color-dark: #152f23;
 $color-light: #fff;
-$color-main: #E84912;
+$color-main: #e84912;
 $color-warning: #f6b93b;
-$color-danger: #E84912;
+$color-danger: #e84912;
 $color-success: #78e08f;
 $color-choose: #78e08f;
-$color-turtles: #9CCB40;
-
+$color-turtles: #9ccb40;
 
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Lato', sans-serif;
@@ -20,6 +19,7 @@ $font-bold: 700;
 
 $transition: all 0.3s;
 $radius: 5px;
+$radius-round: 10px;
 
 $base-size: 12px;
 
@@ -29,7 +29,7 @@ $base-size: 12px;
   background: $btn-bg;
   color: $btn-text;
   border-color: $btn-border;
-  border-radius: $radius;
+  border-radius: $radius-round;
   transition: $transition;
   display: inline-block;
   border-width: 1px;
@@ -40,7 +40,7 @@ $base-size: 12px;
   text-align: center;
 
   &:hover {
-    background: lighten($btn-bg, 3%);
+    background: lighten($btn-bg, 10%);
   }
 
   // CODE ADDED START

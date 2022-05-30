@@ -163,7 +163,6 @@ class Booking {
     thisBooking.dom.orderSubmit.addEventListener('click', function (event) {
       event.preventDefault();
       thisBooking.sendBooking();
-
     });
   }
 
@@ -175,7 +174,6 @@ class Booking {
 
       const selectedTableId = clickedTable.getAttribute(settings.booking.tableIdAttribute);
       thisBooking.bookedTable = selectedTableId;
-      thisBooking.selectedTableId = parseInt(selectedTableId);
 
       if (
         !clickedTable.classList.contains(classNames.booking.tableBooked) &&
@@ -184,6 +182,8 @@ class Booking {
         for (let table of thisBooking.dom.tables) {
           table.classList.remove(classNames.booking.tableSelected);
           clickedTable.classList.add(classNames.booking.tableSelected);
+
+          thisBooking.selectedTableId = parseInt(selectedTableId);
         }
       else if (clickedTable.classList.contains(classNames.booking.tableSelected)) {
         clickedTable.classList.remove(classNames.booking.tableSelected);
@@ -195,8 +195,8 @@ class Booking {
     const thisBooking = this;
     for (let table of thisBooking.dom.tables) {
       table.classList.remove(classNames.booking.tableSelected);
-      thisBooking.bookedTable = null;
     }
+    thisBooking.bookedTable = null;
   }
 
   sendBooking() {
@@ -238,9 +238,11 @@ class Booking {
 
         thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
         alert('Your booking request has successfully been sent to us!\nIf you have a questions feel free to contact us!');
-        thisBooking.resetTable();
       });
+      thisBooking.resetTable();
+      thisBooking.updateDOM();
   }
+
 }
 
 export default Booking;
